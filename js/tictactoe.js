@@ -222,6 +222,8 @@ function processHit(event){
 			alert("Choose an Empty Spot");
 			return;
 		}
+	  } else{
+		  return;
 	  }
 	
 	var playerWon = winOccured(player);
@@ -382,14 +384,6 @@ function evaluatePotentialWins(){
 	 }
 	 
 	 return null;	 
-//	 if (boardState[0][2] === x && boardState[1][1] === x && boardState[2][0] === x
-//		|| boardState[0][0] === x && boardState[1][1] === x && boardState[2][2] === x){
-//		 return true;
-//	 } else{
-//		 return false;
-//	 }
 }
 
 }
-
-
