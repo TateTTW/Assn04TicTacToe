@@ -143,49 +143,85 @@ function drawMove(type, y, x){
 	
 function processHit(event){
 	if (c.isPointInPath(hit_0_0, event.offsetX, event.offsetY)) {
-		if(boardState[0][0] === null )
+		if(boardState[0][0] === null ){
 			boardState[0][0] = player;
-			drawMove(player,0 ,0);
+			drawMove(player,0 ,0); 
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_0_1, event.offsetX, event.offsetY)) {
-		if(boardState[0][1] === null )
+		if(boardState[0][1] === null ){
 			boardState[0][1] = player;
 			drawMove(player,0 ,1);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_0_2, event.offsetX, event.offsetY)) {
-		if(boardState[0][2] === null )
+		if(boardState[0][2] === null ){
 			boardState[0][2] = player;
 			drawMove(player,0 ,2);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_1_0, event.offsetX, event.offsetY)) {
-		if(boardState[1][0] === null )
+		if(boardState[1][0] === null ){
 			boardState[1][0] = player;
 			drawMove(player,1 ,0);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_1_1, event.offsetX, event.offsetY)) {
-		if(boardState[1][1] === null )
+		if(boardState[1][1] === null ){
 			boardState[1][1] = player;
 			drawMove(player,1 ,1);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_1_2, event.offsetX, event.offsetY)) {
-		if(boardState[1][2] === null )
+		if(boardState[1][2] === null ){
 			boardState[1][2] = player;
 			drawMove(player,1 ,2);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_2_0, event.offsetX, event.offsetY)) {
-		if(boardState[2][0] === null )
+		if(boardState[2][0] === null ){
 			boardState[2][0] = player;
 			drawMove(player,2 ,0);
-	  }
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
+	  } 
 	else if (c.isPointInPath(hit_2_1, event.offsetX, event.offsetY)) {
-		if(boardState[2][1] === null )
+		if(boardState[2][1] === null ){
 			boardState[2][1] = player;
 			drawMove(player,2 ,1);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	else if (c.isPointInPath(hit_2_2, event.offsetX, event.offsetY)) {
-		if(boardState[2][2] === null )
+		if(boardState[2][2] === null ){
 			boardState[2][2] = player;
 			drawMove(player,2 ,2);
+		} else {
+			alert("Choose an Empty Spot");
+			return;
+		}
 	  }
 	
 	var playerWon = winOccured(player);
