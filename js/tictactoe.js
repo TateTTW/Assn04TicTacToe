@@ -253,7 +253,24 @@ function clearBoard(){
 }
 
 function processAI(){
-	var plyrsNxtSpt = evaluatePotentialWins();
+	var compWinSpt = evaluatePotentialWins(computer);
+	if(compWinSpt !== null ){
+		var compX = compWinSpt.x;
+		var compY = compWinSpt.y;
+		
+		boardState[compY][compX] = computer;
+		drawMove(computer, compY, compX);
+		
+		if(winOccured(computer)){
+			setTimeout(function(){ 
+				alert("You Lose!"); 
+				start();
+			}, 0);
+		}
+		return true;
+	}
+	
+	var plyrsNxtSpt = evaluatePotentialWins(player);
 	if(plyrsNxtSpt !== null ){
 		var compX = plyrsNxtSpt.x;
 		var compY = plyrsNxtSpt.y;
@@ -305,10 +322,9 @@ function processAI(){
 	return true;
 }
 
-function evaluatePotentialWins(){
+function evaluatePotentialWins(x){
 	 var EmptySpot = function(){this.x = null ,this.y = null};
 	 var spot = null;
-	 var x = player;
 	 var playerCount = 0;
 	 // check for row win 
 	 for(let i = 0; i < boardState.length; i++){
