@@ -233,6 +233,7 @@ function processHit(event){
 			alert("You Won!"); 
 			start();
 		}, 0);
+		return;
 	}
 	
 	if (!processAI() && !playerWon){
