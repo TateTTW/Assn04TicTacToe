@@ -16,39 +16,27 @@ var boardState = [
 	[null,null,null]
 ];
 
-// create all hit zones
-c.strokeStyle = "white";
-const hit_0_0 = new Path2D();
-hit_0_0.rect(25,10,50,50);
-hc.fill(hit_0_0);
-const hit_0_1 = new Path2D();
-hit_0_1.rect(75,10,50,50);
-hc.fill(hit_0_1);
-const hit_0_2 = new Path2D();
-hit_0_2.rect(125,10,50,50);
-hc.fill(hit_0_2);
-const hit_1_0 = new Path2D();
-hit_1_0.rect(25,60,50,50);
-hc.fill(hit_1_0);
-const hit_1_1 = new Path2D();
-hit_1_1.rect(75,60,50,50);
-hc.fill(hit_1_1);
-const hit_1_2 = new Path2D();
-hit_1_2.rect(125,60,50,50);
-hc.fill(hit_1_2);
-const hit_2_0 = new Path2D();
-hit_2_0.rect(25,110,50,50);
-hc.fill(hit_2_0);
-const hit_2_1 = new Path2D();
-hit_2_1.rect(75,110,50,50);
-hc.fill(hit_2_1);
-const hit_2_2 = new Path2D();
-hit_2_2.rect(125,110,50,50);
-hc.fill(hit_2_2);		
+var hitZones = [
+	[null,null,null],
+	[null,null,null],
+	[null,null,null]
+];
+
+function buildHitZones(){
+	for(let j = 0; j < SIZE;j++){
+        for(let i = 0; i < SIZE; i++){
+        	let zone = new Path2D();
+        	zone.rect(i*50+25,j*50+10,50,50);
+        	hc.fill(zone);
+        	hitZones[j][i] = zone;
+        }
+	}
+}
 
 (function autoStart(){
 	clearBoard();
-	drawBoard();	
+	buildHitZones();
+	drawBoard();
 }());
 
 function start(){
@@ -142,92 +130,25 @@ function drawMove(type, y, x){
 }
 	
 function processHit(event){
-	if (c.isPointInPath(hit_0_0, event.offsetX, event.offsetY)) {
-		if(boardState[0][0] === null ){
-			boardState[0][0] = player;
-			drawMove(player,0 ,0); 
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_0_1, event.offsetX, event.offsetY)) {
-		if(boardState[0][1] === null ){
-			boardState[0][1] = player;
-			drawMove(player,0 ,1);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_0_2, event.offsetX, event.offsetY)) {
-		if(boardState[0][2] === null ){
-			boardState[0][2] = player;
-			drawMove(player,0 ,2);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_1_0, event.offsetX, event.offsetY)) {
-		if(boardState[1][0] === null ){
-			boardState[1][0] = player;
-			drawMove(player,1 ,0);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_1_1, event.offsetX, event.offsetY)) {
-		if(boardState[1][1] === null ){
-			boardState[1][1] = player;
-			drawMove(player,1 ,1);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_1_2, event.offsetX, event.offsetY)) {
-		if(boardState[1][2] === null ){
-			boardState[1][2] = player;
-			drawMove(player,1 ,2);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_2_0, event.offsetX, event.offsetY)) {
-		if(boardState[2][0] === null ){
-			boardState[2][0] = player;
-			drawMove(player,2 ,0);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  } 
-	else if (c.isPointInPath(hit_2_1, event.offsetX, event.offsetY)) {
-		if(boardState[2][1] === null ){
-			boardState[2][1] = player;
-			drawMove(player,2 ,1);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  }
-	else if (c.isPointInPath(hit_2_2, event.offsetX, event.offsetY)) {
-		if(boardState[2][2] === null ){
-			boardState[2][2] = player;
-			drawMove(player,2 ,2);
-		} else {
-			alert("Choose an Empty Spot");
-			return;
-		}
-	  } else{
-		  return;
-	  }
+	var outsideZone = true;	
+	for(let y = 0; y < hitZones.length; y++){
+        for(let x = 0; x < hitZones[y].length; x++ ){
+        	let zone = hitZones[y][x];
+        	if (c.isPointInPath(zone, event.offsetX, event.offsetY)) {
+        		outsideZone = false;
+        		if(boardState[y][x] === null ){
+        			boardState[y][x] = player;
+        			drawMove(player,y ,x);
+        		} else {
+        			alert("Choose an Empty Spot");
+        			return;
+        		}
+        	}
+        }
+	}
+	if (outsideZone) return;
 	
-	var playerWon = winOccured(player);
-	
+	var playerWon = winOccured(player);	
 	if(playerWon){
 		setTimeout(function(){ 
 			alert("You Won!"); 
@@ -254,7 +175,7 @@ function clearBoard(){
 }
 
 function processAI(){
-	var compWinSpt = evaluatePotentialWins(computer);
+	var compWinSpt = potentialWins(computer);
 	if(compWinSpt !== null ){
 		var compX = compWinSpt.x;
 		var compY = compWinSpt.y;
@@ -271,7 +192,7 @@ function processAI(){
 		return true;
 	}
 	
-	var plyrsNxtSpt = evaluatePotentialWins(player);
+	var plyrsNxtSpt = potentialWins(player);
 	if(plyrsNxtSpt !== null ){
 		var compX = plyrsNxtSpt.x;
 		var compY = plyrsNxtSpt.y;
@@ -306,7 +227,6 @@ function processAI(){
 		return false;
 
 	var max = spots.length - 1;
-
 	var num = Math.floor((Math.random() * max) + 0);
 	var compX = spots[num].x;
 	var compY = spots[num].y;
@@ -323,7 +243,7 @@ function processAI(){
 	return true;
 }
 
-function evaluatePotentialWins(x){
+function potentialWins(x){
 	 var EmptySpot = function(){this.x = null ,this.y = null};
 	 var spot = null;
 	 var playerCount = 0;
