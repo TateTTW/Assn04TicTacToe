@@ -42,7 +42,7 @@ article{
 
 main{
 	background-color: #2045D8;
-	width: 500px;
+	width: 400px;
 	border: 2px solid black;
 	padding-bottom: 20px;
 	margin: 0 auto;
@@ -50,45 +50,6 @@ main{
 	margin-top: 50px;
 }
 
-#resetBtn{
-	font-weight: bold;
-	background-color: DeepSkyBlue;
-	background-color: red;
-	border: 1px solid black;
-	cursor:pointer;
-}
-
-#prevLettersContainer{
-	border: 2px dotted black;
-	width:auto;
-	margin: 40px;
-	background-color:DeepSkyBlue;
-}
-
-#prevLettersContainer h3{
-	text-decoration: underline;
-	font-size: 14px;
-}
-
-#prevLetters{
-	padding:10px;
-	font-weight: bold;
-}
-
-#table{
-	border-right: 10px solid #804000;
-}
-
-
-td{
-	margin:0;
-	padding:0;
-	width: auto;
-	height: auto;
-}
-
-.letterPlaceholder{
-	border-bottom: 5px solid red;
-	margin:2px;
-	font-size: 19px;
+canvas{
+	margin-top: 20px;
 }

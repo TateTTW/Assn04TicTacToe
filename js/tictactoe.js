@@ -1,8 +1,8 @@
 window.onload = function(){
 const canvas = document.querySelector('canvas');
 const hitCanvas = document.createElement('canvas');
-canvas.height = 400;
-canvas.width = 400;
+canvas.height = 200;
+canvas.width = 200;
 var c = canvas.getContext('2d');
 var hc = hitCanvas.getContext('2d');
 canvas.addEventListener('click', processHit);
@@ -322,5 +322,4 @@ function potentialWins(x){
 	 
 	 return null;	 
 }
-
 }
