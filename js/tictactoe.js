@@ -130,7 +130,8 @@ function drawMove(type, y, x){
 }
 	
 function processHit(event){
-	var outsideZone = true;	
+	var outsideZone = true;
+	outerLoop:
 	for(let y = 0; y < hitZones.length; y++){
         for(let x = 0; x < hitZones[y].length; x++ ){
         	let zone = hitZones[y][x];
@@ -139,6 +140,7 @@ function processHit(event){
         		if(boardState[y][x] === null ){
         			boardState[y][x] = player;
         			drawMove(player,y ,x);
+        			break outerLoop;
         		} else {
         			alert("Choose an Empty Spot");
         			return;
